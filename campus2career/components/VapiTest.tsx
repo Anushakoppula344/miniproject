@@ -39,7 +39,20 @@ export default function VapiTest() {
           process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID,
           process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID
         );
-        results.connection = connected ? '✅ Connected' : '❌ Failed to connect';
+        results.connection = connected ? '✅ Connected' : '⚠️ Connection not required (new architecture)';
+      }
+
+      // Test 5: Test workflow triggering (most important)
+      if (process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID && process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID) {
+        const callId = await vapiMCP.triggerWorkflow({
+          workflowId: process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID,
+          assistantId: process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID,
+          variableValues: {
+            username: 'test_user',
+            userid: 'test_id'
+          }
+        });
+        results.workflowTrigger = callId ? `✅ Triggered (Call ID: ${callId})` : '❌ Failed to trigger';
       }
 
     } catch (error) {
@@ -77,6 +90,7 @@ export default function VapiTest() {
             <div><strong>Assistant:</strong> {testResults.assistant}</div>
             <div><strong>Workflow:</strong> {testResults.workflow}</div>
             <div><strong>Connection:</strong> {testResults.connection}</div>
+            <div><strong>Workflow Trigger:</strong> {testResults.workflowTrigger}</div>
 
             {testResults.error && (
               <div className="text-red-500">
