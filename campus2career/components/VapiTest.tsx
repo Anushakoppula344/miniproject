@@ -44,6 +44,11 @@ export default function VapiTest() {
 
       // Test 5: Test workflow triggering (most important)
       if (process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID && process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID) {
+        console.log('Testing workflow trigger with:', {
+          workflowId: process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID,
+          assistantId: process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID
+        });
+        
         const callId = await vapiMCP.triggerWorkflow({
           workflowId: process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID,
           assistantId: process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID,
@@ -52,7 +57,10 @@ export default function VapiTest() {
             userid: 'test_id'
           }
         });
+        
+        console.log('Workflow trigger result:', callId);
         results.workflowTrigger = callId ? `✅ Triggered (Call ID: ${callId})` : '❌ Failed to trigger';
+        results.triggerDetails = { callId, workflowId: process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID, assistantId: process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID };
       }
 
     } catch (error) {

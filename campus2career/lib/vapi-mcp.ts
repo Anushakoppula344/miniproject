@@ -78,17 +78,21 @@ class VapiMCPService {
   // Get assistant details
   async getAssistant(assistantId: string) {
     try {
+      console.log(`Getting assistant: ${assistantId}`);
       const response = await fetch(`${this.baseUrl}/assistant/${assistantId}`, {
         headers: {
           'Authorization': `Bearer ${this.apiKey}`,
         }
       });
 
+      console.log(`Assistant response status: ${response.status}`);
       if (!response.ok) {
         throw new Error(`Failed to get assistant: ${response.statusText}`);
       }
 
-      return await response.json();
+      const data = await response.json();
+      console.log('Assistant data:', data);
+      return data;
     } catch (error) {
       console.error('Error getting assistant:', error);
       return null;
