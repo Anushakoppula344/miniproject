@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Mona_Sans } from "next/font/google";
 
 import "./globals.css";
+import { setupVapi } from "@/lib/vapi-setup";
 
 const monaSans = Mona_Sans({
     variable: "--font-mona-sans",
@@ -19,6 +20,9 @@ export default function RootLayout({
                                    }: Readonly<{
     children: React.ReactNode;
 }>) {
+    // Initialize Vapi connections
+    setupVapi();
+
     return (
         <html lang="en" className="dark">
         <body className={`${monaSans.className} antialiased pattern`}>

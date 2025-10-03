@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { vapi } from "@/lib/vapi.sdk";
+import { vapiMCP } from "@/lib/vapi-mcp";
 //import { interviewer } from "@/constants";
 import { createFeedback } from "@/lib/actions/general.action";
 
@@ -117,26 +118,59 @@ const Agent = ({
   const handleCall = async () => {
     setCallStatus(CallStatus.CONNECTING);
 
-    if (type === "generate") {
-      await vapi.start(process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!, {
-        variableValues: {
-          username: userName,
-          userid: userId,
-        },
-      });
-    } else {
-      let formattedQuestions = "";
-      if (questions) {
-        formattedQuestions = questions
-          .map((question) => `- ${question}`)
-          .join("\n");
-      }
+    try {
+      if (type === "generate") {
+        // New MCP API approach for workflow triggering
+        const callId = await vapiMCP.triggerWorkflow({
+          workflowId: process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!,
+          assistantId: process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID!,
+          variableValues: {
+            username: userName,
+            userid: userId,
+          },
+        });
 
-      await vapi.start(interviewer, {
-        variableValues: {
-          questions: formattedQuestions,
-        },
-      });
+        if (callId) {
+          // Start the call with the returned call ID
+          await vapi.start(callId);
+        } else {
+          throw new Error('Failed to trigger workflow');
+        }
+      } else {
+        // For custom interviews, you might still use the old approach
+        // or create a separate workflow for custom interviews
+        let formattedQuestions = "";
+        if (questions) {
+          formattedQuestions = questions
+            .map((question) => `- ${question}`)
+            .join("\n");
+        }
+
+        // Option 1: Use MCP API for custom interviews too
+        const callId = await vapiMCP.triggerWorkflow({
+          workflowId: process.env.NEXT_PUBLIC_VAPI_CUSTOM_INTERVIEW_WORKFLOW_ID!,
+          assistantId: process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID!,
+          variableValues: {
+            questions: formattedQuestions,
+          },
+        });
+
+        if (callId) {
+          await vapi.start(callId);
+        } else {
+          throw new Error('Failed to trigger custom interview workflow');
+        }
+
+        // Option 2: Fallback to old approach if MCP fails
+        // await vapi.start(interviewer, {
+        //   variableValues: {
+        //     questions: formattedQuestions,
+        //   },
+        // });
+      }
+    } catch (error) {
+      console.error('Error starting call:', error);
+      setCallStatus(CallStatus.INACTIVE);
     }
   };
 
