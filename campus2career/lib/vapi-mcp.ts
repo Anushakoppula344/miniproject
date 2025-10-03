@@ -57,24 +57,55 @@ class VapiMCPService {
   // Trigger a workflow with an assistant
   async triggerWorkflow(config: WorkflowTrigger): Promise<string | null> {
     try {
-      const response = await fetch(`${this.baseUrl}/workflow/${config.workflowId}/trigger`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${this.apiKey}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          assistantId: config.assistantId,
-          variableValues: config.variableValues || {}
-        })
-      });
+      // Try different possible endpoints for workflow triggering
+      const endpoints = [
+        `${this.baseUrl}/workflow/${config.workflowId}/trigger`,
+        `${this.baseUrl}/workflows/${config.workflowId}/trigger`,
+        `${this.baseUrl}/call`,
+        `${this.baseUrl}/calls`
+      ];
 
-      if (!response.ok) {
-        throw new Error(`Failed to trigger workflow: ${response.statusText}`);
+      for (const endpoint of endpoints) {
+        try {
+          console.log(`Trying endpoint: ${endpoint}`);
+          
+          const requestBody = endpoint.includes('/call') ? {
+            assistantId: config.assistantId,
+            workflowId: config.workflowId,
+            variableValues: config.variableValues || {}
+          } : {
+            assistantId: config.assistantId,
+            variableValues: config.variableValues || {}
+          };
+
+          const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${this.apiKey}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestBody)
+          });
+
+          console.log(`Response status: ${response.status}`);
+          const responseText = await response.text();
+          console.log(`Response: ${responseText}`);
+
+          if (response.ok) {
+            try {
+              const data = JSON.parse(responseText);
+              return data.callId || data.id || data.call?.id || 'success';
+            } catch {
+              return 'success';
+            }
+          }
+        } catch (error) {
+          console.log(`Endpoint ${endpoint} failed:`, error);
+          continue;
+        }
       }
 
-      const data = await response.json();
-      return data.callId || data.id;
+      throw new Error('All workflow trigger endpoints failed');
     } catch (error) {
       console.error('Error triggering workflow:', error);
       return null;

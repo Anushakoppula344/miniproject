@@ -120,7 +120,7 @@ const Agent = ({
 
     try {
       if (type === "generate") {
-        // New MCP API approach for workflow triggering
+        // Try new MCP API approach first
         const callId = await vapiMCP.triggerWorkflow({
           workflowId: process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!,
           assistantId: process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID!,
@@ -130,15 +130,21 @@ const Agent = ({
           },
         });
 
-        if (callId) {
+        if (callId && callId !== 'success') {
           // Start the call with the returned call ID
           await vapi.start(callId);
         } else {
-          throw new Error('Failed to trigger workflow');
+          // Fallback to direct workflow start
+          console.log('MCP API failed, trying direct workflow start...');
+          await vapi.start(process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!, {
+            variableValues: {
+              username: userName,
+              userid: userId,
+            },
+          });
         }
       } else {
-        // For custom interviews, you might still use the old approach
-        // or create a separate workflow for custom interviews
+        // For custom interviews
         let formattedQuestions = "";
         if (questions) {
           formattedQuestions = questions
@@ -146,7 +152,7 @@ const Agent = ({
             .join("\n");
         }
 
-        // Option 1: Use MCP API for custom interviews too
+        // Try MCP API first
         const callId = await vapiMCP.triggerWorkflow({
           workflowId: process.env.NEXT_PUBLIC_VAPI_CUSTOM_INTERVIEW_WORKFLOW_ID!,
           assistantId: process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID!,
@@ -155,18 +161,17 @@ const Agent = ({
           },
         });
 
-        if (callId) {
+        if (callId && callId !== 'success') {
           await vapi.start(callId);
         } else {
-          throw new Error('Failed to trigger custom interview workflow');
+          // Fallback to direct workflow start
+          console.log('MCP API failed, trying direct workflow start...');
+          await vapi.start(process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!, {
+            variableValues: {
+              questions: formattedQuestions,
+            },
+          });
         }
-
-        // Option 2: Fallback to old approach if MCP fails
-        // await vapi.start(interviewer, {
-        //   variableValues: {
-        //     questions: formattedQuestions,
-        //   },
-        // });
       }
     } catch (error) {
       console.error('Error starting call:', error);
