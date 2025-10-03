@@ -1,7 +1,3 @@
 {
-  "buildCommand": "cd campus2career && npm run build",
-  "outputDirectory": "campus2career/.next",
-  "installCommand": "cd campus2career && npm install",
-  "devCommand": "cd campus2career && npm run dev",
   "framework": "nextjs"
 }
