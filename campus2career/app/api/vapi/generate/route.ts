@@ -65,7 +65,7 @@ export async function POST(request: Request){
         };
 
         // Save to backend API instead of direct Firebase
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://miniproject-backend.vercel.app'}/api/interviews`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://miniproject-backend-chi.vercel.app'}/api/interviews`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(interview)

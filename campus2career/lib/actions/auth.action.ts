@@ -44,7 +44,7 @@ export async function signIn(params: SignInParams): Promise<{ success: boolean, 
     const { email, password } = params;
 
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://miniproject-backend.vercel.app'}/auth/sign-in`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://miniproject-backend-chi.vercel.app'}/auth/sign-in`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password }),

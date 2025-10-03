@@ -53,7 +53,7 @@ export async function createFeedback(params: CreateFeedbackParams) {
             createdAt: new Date().toISOString(),
         };
 
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://miniproject-backend.vercel.app'}/api/feedback`, {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://miniproject-backend-chi.vercel.app'}/api/feedback`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ ...feedback, feedbackId }),
@@ -71,7 +71,7 @@ export async function createFeedback(params: CreateFeedbackParams) {
 export async function getInterviewById(id: string): Promise<Interview | null> {
     if (!id) return null;
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://miniproject-backend.vercel.app'}/api/interviews/${id}`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://miniproject-backend-chi.vercel.app'}/api/interviews/${id}`);
     if (!response.ok) return null;
     return await response.json();
 }
@@ -84,7 +84,7 @@ export async function getFeedbackByInterviewId(
 
     if (!interviewId || !userId) return null;
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://miniproject-backend.vercel.app'}/api/feedback?interviewId=${interviewId}&userId=${userId}`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://miniproject-backend-chi.vercel.app'}/api/feedback?interviewId=${interviewId}&userId=${userId}`);
     if (!response.ok) return null;
     const feedbacks = await response.json();
     return feedbacks.length > 0 ? feedbacks[0] : null;
@@ -100,7 +100,7 @@ export async function getLatestInterviews(
         return []; // no user → no results
     }
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://miniproject-backend.vercel.app'}/api/interviews/latest?userId=${userId}&limit=${limit}`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://miniproject-backend-chi.vercel.app'}/api/interviews/latest?userId=${userId}&limit=${limit}`);
     if (!response.ok) return [];
     return await response.json();
 }
@@ -113,7 +113,7 @@ export async function getInterviewsByUserId(
         return []; // no user → no results
     }
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://miniproject-backend.vercel.app'}/api/interviews?userId=${userId}`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://miniproject-backend-chi.vercel.app'}/api/interviews?userId=${userId}`);
     if (!response.ok) return [];
     return await response.json();
 }
