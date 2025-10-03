@@ -1,0 +1,19 @@
+{
+  "name": "mini-project",
+  "version": "1.0.0",
+  "description": "A full-stack application with Next.js frontend and Node.js backend",
+  "private": true,
+  "workspaces": [
+    "campus2career",
+    "backend"
+  ],
+  "scripts": {
+    "dev": "cd campus2career && npm run dev",
+    "build": "cd campus2career && npm run build",
+    "start": "cd campus2career && npm run start",
+    "install-all": "npm install && cd campus2career && npm install && cd ../backend && npm install"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
