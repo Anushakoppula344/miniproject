@@ -420,8 +420,14 @@ export default function JobRolesManagement() {
                 </svg>
                 <span>Logout</span>
               </button>
-              <div className="w-8 h-8 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center">
-                <span className="text-gray-600 dark:text-gray-300 text-sm font-medium">A</span>
+              <div className="relative">
+                <button
+                  onClick={() => router.push('/admin/profile')}
+                  className="w-8 h-8 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors cursor-pointer"
+                  title="Admin Profile"
+                >
+                  <span className="text-gray-600 dark:text-gray-300 text-sm font-medium">A</span>
+                </button>
               </div>
             </div>
           </div>
