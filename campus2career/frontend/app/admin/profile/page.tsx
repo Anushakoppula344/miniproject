@@ -401,3 +401,4 @@ export default function AdminProfilePage() {
     </AdminProtection>
   );
 }
+
