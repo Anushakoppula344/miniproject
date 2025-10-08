@@ -29,8 +29,23 @@ export default function CircularProgress({
   const strokeDashoffset = circumference - (percentage / 100) * circumference;
 
   return (
-    <div className={`flex flex-col items-center ${className}`}>
-      <div className="relative" style={{ width: size, height: size }}>
+    <div className={`flex items-center space-x-3 ${className}`}>
+      {/* Text content on the left */}
+      <div className="flex flex-col items-start min-w-0">
+        {value && (
+          <span className="text-lg font-bold text-slate-900 dark:text-white leading-tight">
+            {value}
+          </span>
+        )}
+        {label && (
+          <span className="text-xs text-slate-600 dark:text-slate-400 font-medium leading-tight">
+            {label}
+          </span>
+        )}
+      </div>
+      
+      {/* Progress Circle on the right */}
+      <div className="relative flex-shrink-0" style={{ width: size, height: size }}>
         <svg
           width={size}
           height={size}
@@ -60,18 +75,13 @@ export default function CircularProgress({
             className="transition-all duration-500 ease-in-out"
           />
         </svg>
-        {/* Center content */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center">
-          {value && (
-            <span className="text-2xl font-bold text-slate-900">
-              {value}
-            </span>
-          )}
-          {label && (
-            <span className="text-xs text-slate-600 font-medium">
-              {label}
-            </span>
-          )}
+        {/* Center content - show percentage */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className={`font-bold text-slate-900 dark:text-white ${
+            size <= 80 ? 'text-sm' : size <= 100 ? 'text-base' : 'text-lg'
+          }`}>
+            {Math.round(percentage)}%
+          </span>
         </div>
       </div>
     </div>
