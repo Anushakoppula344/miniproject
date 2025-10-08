@@ -603,7 +603,17 @@ export default function CompanyDetailPage() {
                           </div>
                         )}
                         <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
-                          <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors text-sm">
+                          <button 
+                            onClick={() => {
+                              addNotification({
+                                type: 'info',
+                                title: 'Redirecting to RGUKT Basar',
+                                message: 'Opening RGUKT Basar website for job application...'
+                              });
+                              window.open('https://www.rgukt.ac.in/', '_blank');
+                            }}
+                            className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors text-sm"
+                          >
                             Apply Now
                           </button>
                         </div>

@@ -347,7 +347,17 @@ export default function OpportunitiesPage() {
                     <span className="font-medium">Application Deadline:</span> {new Date(job.registrationLastDate).toLocaleDateString()}
                   </div>
                   <div className="flex space-x-2">
-                    <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors text-sm">
+                    <button 
+                      onClick={() => {
+                        addNotification({
+                          type: 'info',
+                          title: 'Redirecting to RGUKT Basar',
+                          message: 'Opening RGUKT Basar website for job application...'
+                        });
+                        window.open('https://www.rgukt.ac.in/', '_blank');
+                      }}
+                      className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors text-sm"
+                    >
                       Apply Now
                     </button>
                     <button className="px-4 py-2 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-md transition-colors text-sm">
