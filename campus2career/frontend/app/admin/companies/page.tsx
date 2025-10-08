@@ -724,63 +724,63 @@ export default function CompaniesManagement() {
         {isAddModalOpen && (
           <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
              <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" onClick={handleCloseModal} />
-            <div className="relative bg-white rounded-2xl shadow-2xl border border-slate-200 p-8 w-full max-w-2xl mx-auto z-10">
-              <h2 className="text-2xl font-bold text-slate-900 mb-6">
+            <div className="relative bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 p-8 w-full max-w-2xl mx-auto z-10">
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
                 {editingCompany ? 'Edit Company' : 'Add New Company'}
               </h2>
               
               <form className="space-y-6" onSubmit={editingCompany ? handleUpdateCompany : handleSubmit}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2">Company Name</label>
+                    <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Company Name</label>
                     <input
                       type="text"
                       name="name"
                       value={formData.name}
                       onChange={handleFormChange}
-                      className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-900 placeholder-slate-400"
+                      className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 bg-white dark:bg-slate-700"
                       placeholder="Enter company name"
                       required
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2">Industry</label>
+                    <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Industry</label>
                     <select 
                       name="industry"
                       value={formData.industry}
                       onChange={handleFormChange}
-                      className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white relative z-30 text-slate-900 font-medium"
+                      className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-slate-700 relative z-30 text-slate-900 dark:text-white font-medium"
                     >
-                      <option className="text-slate-900 font-medium">Technology</option>
-                      <option className="text-slate-900 font-medium">Finance</option>
-                      <option className="text-slate-900 font-medium">Healthcare</option>
-                      <option className="text-slate-900 font-medium">E-commerce</option>
-                      <option className="text-slate-900 font-medium">Manufacturing</option>
+                      <option className="text-slate-900 dark:text-white font-medium">Technology</option>
+                      <option className="text-slate-900 dark:text-white font-medium">Finance</option>
+                      <option className="text-slate-900 dark:text-white font-medium">Healthcare</option>
+                      <option className="text-slate-900 dark:text-white font-medium">E-commerce</option>
+                      <option className="text-slate-900 dark:text-white font-medium">Manufacturing</option>
                     </select>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2">Location</label>
+                    <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Location</label>
                     <input
                       type="text"
                       name="location"
                       value={formData.location}
                       onChange={handleFormChange}
-                      className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-900 placeholder-slate-400"
+                      className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 bg-white dark:bg-slate-700"
                       placeholder="City, State"
                       required
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2">Website</label>
+                    <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Website</label>
                     <input
                       type="url"
                       name="website"
                       value={formData.website}
                       onChange={handleFormChange}
-                      className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-900 placeholder-slate-400"
+                      className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 bg-white dark:bg-slate-700"
                       placeholder="company.com"
                       required
                     />
@@ -788,28 +788,28 @@ export default function CompaniesManagement() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-slate-700 mb-2">Company Size</label>
+                  <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Company Size</label>
                   <select 
                     name="companySize"
                     value={formData.companySize}
                     onChange={handleFormChange}
-                    className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white relative z-30 text-slate-900 font-medium"
+                    className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white dark:bg-slate-700 relative z-30 text-slate-900 dark:text-white font-medium"
                   >
-                    <option className="text-slate-900 font-medium">1-50</option>
-                    <option className="text-slate-900 font-medium">51-200</option>
-                    <option className="text-slate-900 font-medium">201-1000</option>
-                    <option className="text-slate-900 font-medium">1000+</option>
+                    <option className="text-slate-900 dark:text-white font-medium">1-50</option>
+                    <option className="text-slate-900 dark:text-white font-medium">51-200</option>
+                    <option className="text-slate-900 dark:text-white font-medium">201-1000</option>
+                    <option className="text-slate-900 dark:text-white font-medium">1000+</option>
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-slate-700 mb-2">Description</label>
+                  <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Description</label>
                   <textarea
                     name="description"
                     value={formData.description}
                     onChange={handleFormChange}
                     rows={4}
-                    className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-900 placeholder-slate-400"
+                    className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 bg-white dark:bg-slate-700"
                     placeholder="Brief description of the company..."
                     required
                   />
@@ -819,14 +819,14 @@ export default function CompaniesManagement() {
                   <button
                     type="button"
                     onClick={handleCloseModal}
-                    className="px-6 py-3 border border-slate-300 rounded-xl hover:bg-slate-50 transition-colors"
+                    className="px-6 py-3 border border-slate-300 dark:border-slate-600 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-500 dark:to-blue-600 text-white rounded-xl hover:from-blue-700 hover:to-blue-800 dark:hover:from-blue-600 dark:hover:to-blue-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isLoading ? (editingCompany ? 'Updating...' : 'Adding...') : (editingCompany ? 'Update Company' : 'Add Company')}
                   </button>
