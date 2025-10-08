@@ -11,6 +11,16 @@ const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
 const interviewRoutes = require('./routes/interviews');
 const testRoutes = require('./routes/test');
+const companyRoutes = require('./routes/companies');
+const jobRoleRoutes = require('./routes/jobRoles');
+const workflowRoutes = require('./routes/workflows');
+const questionRoutes = require('./routes/questions');
+const answerRoutes = require('./routes/answers');
+const reminderRoutes = require('./routes/reminders');
+const googleCalendarRoutes = require('./routes/google-calendar');
+const notificationRoutes = require('./routes/notifications');
+const notificationPreferencesRoutes = require('./routes/notificationPreferences');
+const themePreferencesRoutes = require('./routes/themePreferences');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -23,16 +33,23 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Serve static files from uploads directory
+app.use('/uploads', express.static('uploads'));
+
 // MongoDB connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/mock-interview', {
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://koppula:your_password@campus2career-cluster.xxxxx.mongodb.net/campus2careerDB?retryWrites=true&w=majority';
+
+mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 5000, // Keep trying to send operations for 5 seconds
+  socketTimeoutMS: 45000, // Close sockets after 45 seconds of inactivity
 })
 .then(() => console.log('✅ MongoDB connected successfully'))
 .catch(err => {
   console.error('❌ MongoDB connection error:', err);
   console.log('⚠️  Server will continue running but database features will be limited');
-  console.log('💡 To fix: Install MongoDB locally or use MongoDB Atlas');
+  console.log('💡 To fix: Update the MONGODB_URI in your .env file with the correct Atlas connection string');
 });
 
 // Routes
@@ -40,13 +57,36 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/interviews', interviewRoutes);
 app.use('/api/test', testRoutes);
+app.use('/api/companies', companyRoutes);
+app.use('/api/job-roles', jobRoleRoutes);
+app.use('/api/workflows', workflowRoutes);
+app.use('/api/questions', questionRoutes);
+app.use('/api/questions', answerRoutes);
+app.use('/api/reminders', reminderRoutes);
+app.use('/api/google-calendar', googleCalendarRoutes);
+app.use('/api/notifications', notificationRoutes);
+app.use('/api/notification-preferences', notificationPreferencesRoutes);
+app.use('/api/theme-preferences', themePreferencesRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({ 
     status: 'OK', 
-    message: 'Mock Interview Backend API is running',
-    timestamp: new Date().toISOString()
+    message: 'Campus2Career Backend API is running',
+    timestamp: new Date().toISOString(),
+    endpoints: {
+      companies: '/api/companies',
+      jobRoles: '/api/job-roles',
+      workflows: '/api/workflows',
+      auth: '/api/auth',
+      users: '/api/users',
+      interviews: '/api/interviews',
+      questions: '/api/questions',
+      answers: '/api/questions/:id/answers',
+      notifications: '/api/notifications',
+      notificationPreferences: '/api/notification-preferences',
+      themePreferences: '/api/theme-preferences'
+    }
   });
 });
 
@@ -70,7 +110,11 @@ app.use('*', (req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`🚀 Campus2Career Backend Server running on port ${PORT}`);
   console.log(`📱 Frontend URL: ${process.env.FRONTEND_URL || 'http://localhost:3000'}`);
   console.log(`🔗 Health check: http://localhost:${PORT}/api/health`);
+  console.log(`📊 Admin API Endpoints:`);
+  console.log(`   Companies: http://localhost:${PORT}/api/companies`);
+  console.log(`   Job Roles: http://localhost:${PORT}/api/job-roles`);
+  console.log(`   Workflows: http://localhost:${PORT}/api/workflows`);
 });

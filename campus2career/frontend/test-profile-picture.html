@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Picture Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-8">Profile Picture Test</h1>
+        
+        <div class="space-y-8">
+            <div class="bg-gray-800 rounded-xl p-8">
+                <h2 class="text-xl font-semibold mb-4">Test Profile Picture Loading</h2>
+                
+                <div class="flex items-center space-x-8">
+                    <!-- Test with different profile picture paths -->
+                    <div class="text-center">
+                        <h3 class="text-sm text-gray-400 mb-2">With Backend URL</h3>
+                        <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center overflow-hidden">
+                            <img 
+                                id="testImage1"
+                                src="http://localhost:5000/uploads/profile-pictures/test-image.jpg" 
+                                alt="Test" 
+                                className="w-full h-full object-cover"
+                                onError="handleImageError('testImage1', 'A')"
+                            />
+                        </div>
+                        <p class="text-xs text-gray-400 mt-2">Should show image or fallback</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <h3 class="text-sm text-gray-400 mb-2">Without Backend URL</h3>
+                        <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center overflow-hidden">
+                            <img 
+                                id="testImage2"
+                                src="/uploads/profile-pictures/test-image.jpg" 
+                                alt="Test" 
+                                className="w-full h-full object-cover"
+                                onError="handleImageError('testImage2', 'B')"
+                            />
+                        </div>
+                        <p class="text-xs text-gray-400 mt-2">Should show fallback</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <h3 class="text-sm text-gray-400 mb-2">Fallback Test</h3>
+                        <div class="w-20 h-20 bg-white rounded-full flex items-center justify-center overflow-hidden">
+                            <span class="text-2xl text-gray-600">A</span>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-2">Initials fallback</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-gray-800 rounded-xl p-8">
+                <h2 class="text-xl font-semibold mb-4">Console Logs</h2>
+                <div id="consoleLogs" class="bg-black text-green-400 p-4 rounded font-mono text-sm h-32 overflow-y-auto">
+                    <div>Loading test images...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function log(message) {
+            const consoleDiv = document.getElementById('consoleLogs');
+            const timestamp = new Date().toLocaleTimeString();
+            consoleDiv.innerHTML += `<div>[${timestamp}] ${message}</div>`;
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+        }
+
+        function handleImageError(imageId, fallback) {
+            const img = document.getElementById(imageId);
+            img.style.display = 'none';
+            const parent = img.parentElement;
+            parent.innerHTML = `<span class="text-2xl text-gray-600">${fallback}</span>`;
+            log(`Image ${imageId} failed to load, showing fallback: ${fallback}`);
+        }
+
+        // Test localStorage user data
+        function testUserData() {
+            const userData = localStorage.getItem('user');
+            if (userData) {
+                const user = JSON.parse(userData);
+                log(`User data found: ${user.fullName || 'Unknown'}`);
+                log(`Profile picture path: ${user.profilePicture || 'None'}`);
+                if (user.profilePicture) {
+                    log(`Full URL would be: http://localhost:5000${user.profilePicture}`);
+                }
+            } else {
+                log('No user data in localStorage');
+            }
+        }
+
+        // Run tests
+        log('Starting profile picture tests...');
+        testUserData();
+        
+        // Test image loading
+        document.getElementById('testImage1').onload = () => log('Test image 1 loaded successfully');
+        document.getElementById('testImage2').onload = () => log('Test image 2 loaded successfully');
+    </script>
+</body>
+</html>
+

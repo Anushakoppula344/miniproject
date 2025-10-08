@@ -28,6 +28,12 @@ const userSchema = new mongoose.Schema({
     enum: ['software-engineer', 'data-scientist', 'product-manager', 'designer', 'marketing', 'sales', 'other'],
     default: 'software-engineer'
   },
+  userType: {
+    type: String,
+    required: [true, 'User type is required'],
+    enum: ['student', 'admin'],
+    default: 'student'
+  },
   interviewType: {
     type: String,
     required: [true, 'Interview type is required'],
@@ -51,6 +57,78 @@ const userSchema = new mongoose.Schema({
   lastLogin: {
     type: Date,
     default: null
+  },
+  // Google Calendar integration fields
+  googleAccessToken: {
+    type: String,
+    default: ''
+  },
+  googleRefreshToken: {
+    type: String,
+    default: ''
+  },
+  googleCalendarConnected: {
+    type: Boolean,
+    default: false
+  },
+  googleCalendarEmail: {
+    type: String,
+    default: ''
+  },
+  // Additional profile fields
+  fullName: {
+    type: String,
+    trim: true,
+    maxlength: [100, 'Full name cannot exceed 100 characters']
+  },
+  phone: {
+    type: String,
+    trim: true,
+    maxlength: [20, 'Phone number cannot exceed 20 characters']
+  },
+  university: {
+    type: String,
+    trim: true,
+    maxlength: [200, 'University name cannot exceed 200 characters']
+  },
+  major: {
+    type: String,
+    trim: true,
+    maxlength: [100, 'Major cannot exceed 100 characters']
+  },
+  graduationYear: {
+    type: String,
+    trim: true,
+    maxlength: [4, 'Graduation year cannot exceed 4 characters']
+  },
+  bio: {
+    type: String,
+    trim: true,
+    maxlength: [500, 'Bio cannot exceed 500 characters']
+  },
+  location: {
+    type: String,
+    trim: true,
+    maxlength: [100, 'Location cannot exceed 100 characters']
+  },
+  linkedinUrl: {
+    type: String,
+    trim: true,
+    maxlength: [200, 'LinkedIn URL cannot exceed 200 characters']
+  },
+  githubUrl: {
+    type: String,
+    trim: true,
+    maxlength: [200, 'GitHub URL cannot exceed 200 characters']
+  },
+  portfolioUrl: {
+    type: String,
+    trim: true,
+    maxlength: [200, 'Portfolio URL cannot exceed 200 characters']
+  },
+  profilePicture: {
+    type: String,
+    default: ''
   }
 }, {
   timestamps: true,
@@ -62,9 +140,20 @@ const userSchema = new mongoose.Schema({
 userSchema.virtual('profile').get(function() {
   return {
     _id: this._id,
-    fullName: this.name,
+    fullName: this.fullName || this.name,
     email: this.email,
+    phone: this.phone,
+    university: this.university,
+    major: this.major,
+    graduationYear: this.graduationYear,
+    bio: this.bio,
+    location: this.location,
+    linkedinUrl: this.linkedinUrl,
+    githubUrl: this.githubUrl,
+    portfolioUrl: this.portfolioUrl,
+    profilePicture: this.profilePicture,
     role: this.role,
+    userType: this.userType,
     interviewType: this.interviewType,
     yearsOfExperience: this.yearsOfExperience,
     skills: this.skills,

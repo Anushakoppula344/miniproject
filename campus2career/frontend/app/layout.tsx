@@ -1,6 +1,9 @@
 import { Toaster } from "sonner";
 import type { Metadata } from "next";
 import { Mona_Sans } from "next/font/google";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { ActivityProvider } from "@/components/ActivityProvider";
+import { NotificationProvider } from "@/components/NotificationProvider";
 
 import "./globals.css";
 
@@ -21,12 +24,17 @@ export default function RootLayout({
 }>) {
 
     return (
-        <html lang="en" className="dark">
-        <body className={`${monaSans.className} antialiased pattern`}>
-        {children}
-
-        <Toaster />
-        </body>
+        <html lang="en">
+            <body className={`${monaSans.className} antialiased pattern`}>
+                <ThemeProvider>
+                    <ActivityProvider>
+                        <NotificationProvider>
+                            {children}
+                            <Toaster />
+                        </NotificationProvider>
+                    </ActivityProvider>
+                </ThemeProvider>
+            </body>
         </html>
     );
 }

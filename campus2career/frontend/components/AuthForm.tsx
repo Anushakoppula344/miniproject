@@ -85,8 +85,15 @@ const AuthForm = ({ type }: { type: FormType }) => {
     return (
         <div className="card-border lg:min-w-[566px]">
             <div className="flex flex-col gap-6 card py-14 px-10">
-                <div className="flex flex-row gap-2 justify-center">
-                    <Image src="/logo.svg" alt="logo" height={32} width={38} />
+                <div className="flex flex-row gap-3 justify-center items-center">
+                    {/* Logo Bars */}
+                    <div className="flex items-end space-x-1">
+                        <div className="w-2 bg-indigo-600 rounded-t-sm" style={{height: '16px'}}></div>
+                        <div className="w-2 bg-gray-500 rounded-t-sm" style={{height: '10px'}}></div>
+                        <div className="w-2 bg-indigo-700 rounded-t-sm" style={{height: '24px'}}></div>
+                        <div className="w-2 bg-indigo-600 rounded-t-sm" style={{height: '20px'}}></div>
+                        <div className="w-2 bg-indigo-700 rounded-t-sm" style={{height: '12px'}}></div>
+                    </div>
                     <h2 className="text-primary-100">Campus2Career</h2>
                 </div>
 

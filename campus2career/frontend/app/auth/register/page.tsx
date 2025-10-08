@@ -56,24 +56,27 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
-        <div className="bg-white/10 backdrop-blur-md rounded-2xl p-8 border border-white/20">
-          {/* Header */}
-          <div className="text-center">
-            <div className="w-16 h-16 bg-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-white text-2xl">🚀</span>
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <div className="flex items-center justify-center space-x-3 mb-6">
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-lg">
+              <span className="text-white font-bold text-lg">AI</span>
             </div>
-            <h2 className="text-3xl font-bold text-white mb-2">Get Started</h2>
-            <p className="text-gray-300">Create your account to start practicing interviews</p>
+            <span className="text-slate-900 text-2xl font-bold">Campus2Career</span>
           </div>
+          <h2 className="text-3xl font-bold text-slate-900 mb-2">Get started</h2>
+          <p className="text-slate-600">Create your account to start practicing interviews</p>
+        </div>
 
-          {/* Form */}
-          <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+        {/* Form Card */}
+        <div className="bg-white rounded-2xl shadow-xl border border-slate-200 p-8">
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-4">
               <div>
-                <label htmlFor="fullName" className="block text-sm font-medium text-gray-200 mb-2">
-                  Full Name
+                <label htmlFor="fullName" className="block text-sm font-semibold text-slate-700 mb-2">
+                  Full name
                 </label>
                 <input
                   id="fullName"
@@ -82,14 +85,14 @@ export default function RegisterPage() {
                   required
                   value={formData.fullName}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                   placeholder="Enter your full name"
                 />
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-200 mb-2">
-                  Email Address
+                <label htmlFor="email" className="block text-sm font-semibold text-slate-700 mb-2">
+                  Email address
                 </label>
                 <input
                   id="email"
@@ -98,13 +101,13 @@ export default function RegisterPage() {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                   placeholder="Enter your email"
                 />
               </div>
 
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-200 mb-2">
+                <label htmlFor="password" className="block text-sm font-semibold text-slate-700 mb-2">
                   Password
                 </label>
                 <input
@@ -115,7 +118,7 @@ export default function RegisterPage() {
                   minLength={6}
                   value={formData.password}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                  className="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                   placeholder="Create a password (min 6 characters)"
                 />
               </div>
@@ -123,8 +126,8 @@ export default function RegisterPage() {
 
             {/* Error Message */}
             {error && (
-              <div className="bg-red-500/20 border border-red-500/30 rounded-lg p-3">
-                <p className="text-red-200 text-sm">{error}</p>
+              <div className="bg-red-50 border border-red-200 rounded-xl p-4">
+                <p className="text-red-700 text-sm font-medium">{error}</p>
               </div>
             )}
 
@@ -132,30 +135,30 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 px-4 rounded-lg hover:from-indigo-700 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 font-semibold"
+              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-4 rounded-xl hover:from-blue-700 hover:to-blue-800 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
             >
-              {isLoading ? 'Creating Account...' : 'Create Account'}
+              {isLoading ? 'Creating account...' : 'Create account'}
             </button>
           </form>
 
           {/* Footer */}
           <div className="mt-6 text-center">
-            <p className="text-gray-300">
+            <p className="text-slate-600">
               Already have an account?{' '}
-              <Link href="/auth/login" className="text-indigo-400 hover:text-indigo-300 font-medium">
-                Sign in here
+              <Link href="/auth/login" className="text-blue-600 hover:text-blue-700 font-semibold transition-colors">
+                Sign in
               </Link>
             </p>
           </div>
         </div>
 
         {/* Back to Home */}
-        <div className="text-center">
+        <div className="text-center mt-6">
           <Link 
             href="/" 
-            className="text-gray-300 hover:text-white transition-colors"
+            className="text-slate-500 hover:text-slate-700 transition-colors font-medium"
           >
-            ← Back to Home
+            ← Back to home
           </Link>
         </div>
       </div>

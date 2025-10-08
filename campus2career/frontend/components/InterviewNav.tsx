@@ -31,9 +31,14 @@ export default function InterviewNav() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <Link href="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">AI</span>
+            <Link href="/" className="flex items-center space-x-3">
+              {/* Logo Bars */}
+              <div className="flex items-end space-x-1">
+                <div className="w-2 bg-blue-600 rounded-t-sm" style={{height: '16px'}}></div>
+                <div className="w-2 bg-gray-500 rounded-t-sm" style={{height: '10px'}}></div>
+                <div className="w-2 bg-blue-700 rounded-t-sm" style={{height: '24px'}}></div>
+                <div className="w-2 bg-blue-600 rounded-t-sm" style={{height: '20px'}}></div>
+                <div className="w-2 bg-blue-700 rounded-t-sm" style={{height: '12px'}}></div>
               </div>
               <span className="text-xl font-bold text-gray-800">
                 Campus2Career
