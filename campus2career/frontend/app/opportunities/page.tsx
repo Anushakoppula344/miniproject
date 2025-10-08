@@ -150,7 +150,7 @@ export default function OpportunitiesPage() {
             <nav className="-mb-px flex space-x-8">
               <button
                 onClick={() => setActiveTab('companies')}
-                className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                className={`py-2 px-1 border-b-2 font-medium text-sm cursor-pointer ${
                   activeTab === 'companies'
                     ? 'border-blue-500 text-blue-600 dark:text-blue-400'
                     : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'
@@ -160,7 +160,7 @@ export default function OpportunitiesPage() {
               </button>
               <button
                 onClick={() => setActiveTab('jobs')}
-                className={`py-2 px-1 border-b-2 font-medium text-sm ${
+                className={`py-2 px-1 border-b-2 font-medium text-sm cursor-pointer ${
                   activeTab === 'jobs'
                     ? 'border-blue-500 text-blue-600 dark:text-blue-400'
                     : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300'
@@ -263,7 +263,7 @@ export default function OpportunitiesPage() {
                       });
                       router.push(`/company/${company._id}`);
                     }}
-                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors text-sm"
+                    className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors text-sm cursor-pointer"
                   >
                     View Details
                   </button>
@@ -276,7 +276,7 @@ export default function OpportunitiesPage() {
                       });
                       window.open(company.website, '_blank');
                     }}
-                    className="px-4 py-2 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-md transition-colors text-sm"
+                    className="px-4 py-2 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-md transition-colors text-sm cursor-pointer"
                     title="Visit Company Website"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -356,11 +356,11 @@ export default function OpportunitiesPage() {
                         });
                         window.open('https://www.rgukt.ac.in/', '_blank');
                       }}
-                      className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors text-sm"
+                      className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-md transition-colors text-sm cursor-pointer"
                     >
                       Apply Now
                     </button>
-                    <button className="px-4 py-2 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-md transition-colors text-sm">
+                    <button className="px-4 py-2 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-md transition-colors text-sm cursor-pointer">
                       Save
                     </button>
                   </div>
