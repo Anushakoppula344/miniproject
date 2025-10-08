@@ -96,15 +96,15 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
   };
 
   const getScoreColor = (score: number) => {
-    if (score >= 80) return 'text-green-600';
-    if (score >= 60) return 'text-yellow-600';
-    return 'text-red-600';
+    if (score >= 80) return 'text-green-600 dark:text-green-400';
+    if (score >= 60) return 'text-yellow-600 dark:text-yellow-400';
+    return 'text-red-600 dark:text-red-400';
   };
 
   const getScoreBgColor = (score: number) => {
-    if (score >= 80) return 'bg-green-100';
-    if (score >= 60) return 'bg-yellow-100';
-    return 'bg-red-100';
+    if (score >= 80) return 'bg-green-100 dark:bg-green-900/30';
+    if (score >= 60) return 'bg-yellow-100 dark:bg-yellow-900/30';
+    return 'bg-red-100 dark:bg-red-900/30';
   };
 
   // Chart data preparation functions
@@ -212,10 +212,10 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-indigo-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading results...</p>
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-indigo-600 dark:border-indigo-400 mx-auto"></div>
+          <p className="mt-4 text-slate-600 dark:text-slate-400">Loading results...</p>
         </div>
       </div>
     );
@@ -223,12 +223,12 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
 
   if (!interview) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Results not found</h2>
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Results not found</h2>
           <button
             onClick={() => router.push('/dashboard')}
-            className="bg-indigo-600 text-white px-6 py-3 rounded-md hover:bg-indigo-700 transition-colors"
+            className="bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-500 dark:hover:bg-indigo-600 text-white px-6 py-3 rounded-md transition-colors"
           >
             Back to Dashboard
           </button>
@@ -238,22 +238,58 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
       <Navbar />
       
-      {/* Header */}
-      <header className="bg-white shadow">
+      {/* Enhanced Header Banner */}
+      <header className="bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 dark:from-indigo-800 dark:via-purple-800 dark:to-blue-800 shadow-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="py-6">
-            <h1 className="text-3xl font-bold text-gray-900">Interview Results</h1>
-            <p className="text-gray-600">{interview.title}</p>
-            <div className="mt-4">
-              <button
-                onClick={() => router.push('/dashboard')}
-                className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors"
-              >
-                Back to Dashboard
-              </button>
+          <div className="py-12">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+              <div className="flex-1">
+                <div className="flex items-center space-x-3 mb-4">
+                  <div className="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h1 className="text-4xl font-bold text-white">Interview Results</h1>
+                    <p className="text-indigo-100 text-lg">{interview.title}</p>
+                  </div>
+                </div>
+                <div className="flex flex-wrap items-center gap-4 text-white/90">
+                  <div className="flex items-center space-x-2">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span className="text-sm">Completed on {new Date(interview.createdAt).toLocaleDateString()}</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H8a2 2 0 01-2-2V8a2 2 0 012-2V6" />
+                    </svg>
+                    <span className="text-sm">{interview.role}</span>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span className="text-sm">{interview.totalQuestions} Questions</span>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-6 lg:mt-0 lg:ml-8">
+                <button
+                  onClick={() => router.push('/dashboard')}
+                  className="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 border border-white/30 hover:border-white/50"
+                >
+                  <svg className="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                  </svg>
+                  Back to Dashboard
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -273,28 +309,28 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
           {/* First Row - Overall Score and Charts */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Overall Score Gauge */}
-            <div className="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6">
-              <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 text-center">Overall Performance</h2>
+            <div className="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6 border border-slate-200 dark:border-slate-700">
+              <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-4 text-center">Overall Performance</h2>
               <div className="flex items-center justify-center mb-4">
                 <div className="relative">
-                  <div className="w-40 h-40 rounded-full border-8 border-gray-200 dark:border-slate-600 flex items-center justify-center">
+                  <div className="w-40 h-40 rounded-full border-8 border-slate-200 dark:border-slate-600 flex items-center justify-center bg-slate-50 dark:bg-slate-700">
                     <div className={`text-5xl font-bold ${getScoreColor(interview?.feedback?.overallScore || 70)}`}>
                       {interview?.feedback?.overallScore || 70}
                     </div>
                   </div>
-                  <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                  <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-blue-600 dark:bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
                     / 100
                   </div>
                 </div>
               </div>
-              <p className="text-sm text-gray-600 dark:text-gray-400 text-center">
+              <p className="text-sm text-slate-600 dark:text-slate-400 text-center">
                 You completed {interview?.totalQuestions || 10} questions in this {interview?.interviewType || 'technical'} interview.
               </p>
             </div>
 
             {/* Category Performance Bar Chart */}
-            <div className="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6">
-              <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 text-center">Performance Analysis</h2>
+            <div className="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6 border border-slate-200 dark:border-slate-700">
+              <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-4 text-center">Performance Analysis</h2>
               <div className="h-64">
                 {getCategoryRadarData().length > 0 ? (
                   <ResponsiveContainer width="100%" height="100%">
@@ -324,8 +360,8 @@ export default function ResultsPage({ params }: { params: Promise<{ id: string }
             </div>
 
             {/* Feedback Distribution Pie Chart */}
-            <div className="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6">
-              <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 text-center">Feedback Distribution</h2>
+            <div className="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6 border border-slate-200 dark:border-slate-700">
+              <h2 className="text-2xl font-bold text-slate-800 dark:text-white mb-4 text-center">Feedback Distribution</h2>
               <div className="h-64">
                 {getFeedbackDistributionData().length > 0 ? (
                   <ResponsiveContainer width="100%" height="100%">
