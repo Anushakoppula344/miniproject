@@ -4,8 +4,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { API_BASE_URL } from '@/lib/api';
 import { toast } from 'sonner';
 
-// API configuration
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api';
+// API configuration is imported from lib/api
 
 interface Notification {
   _id: string;
