@@ -68,6 +68,16 @@ app.use('/api/notifications', notificationRoutes);
 app.use('/api/notification-preferences', notificationPreferencesRoutes);
 app.use('/api/theme-preferences', themePreferencesRoutes);
 
+// Root endpoint
+app.get('/', (req, res) => {
+  res.json({ 
+    success: true,
+    message: 'Campus2Career Backend API is running',
+    timestamp: new Date().toISOString(),
+    version: '1.0.0'
+  });
+});
+
 // Health check endpoint
 app.get('/api/health', (req, res) => {
   res.json({ 
@@ -108,13 +118,18 @@ app.use('*', (req, res) => {
   });
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`🚀 Campus2Career Backend Server running on port ${PORT}`);
-  console.log(`📱 Frontend URL: ${process.env.FRONTEND_URL || 'http://localhost:3000'}`);
-  console.log(`🔗 Health check: http://localhost:${PORT}/api/health`);
-  console.log(`📊 Admin API Endpoints:`);
-  console.log(`   Companies: http://localhost:${PORT}/api/companies`);
-  console.log(`   Job Roles: http://localhost:${PORT}/api/job-roles`);
-  console.log(`   Workflows: http://localhost:${PORT}/api/workflows`);
-});
+// Export the Express app for Vercel
+module.exports = app;
+
+// Only start the server if not in Vercel environment
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`🚀 Campus2Career Backend Server running on port ${PORT}`);
+    console.log(`📱 Frontend URL: ${process.env.FRONTEND_URL || 'http://localhost:3000'}`);
+    console.log(`🔗 Health check: http://localhost:${PORT}/api/health`);
+    console.log(`📊 Admin API Endpoints:`);
+    console.log(`   Companies: http://localhost:${PORT}/api/companies`);
+    console.log(`   Job Roles: http://localhost:${PORT}/api/job-roles`);
+    console.log(`   Workflows: http://localhost:${PORT}/api/workflows`);
+  });
+}
