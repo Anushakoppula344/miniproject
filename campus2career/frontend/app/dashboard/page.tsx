@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Navbar from '../../components/Navbar';
 import CircularProgress from '../../components/CircularProgress';
 import { useNotifications } from '../../components/NotificationProvider';
+import { API_ENDPOINTS } from '../../lib/api';
 
 interface User {
   _id: string;
@@ -115,12 +116,12 @@ export default function DashboardPage() {
 
       // Fetch all dashboard data in parallel
       const [interviewsRes, companiesRes, jobRolesRes, forumRes, calendarRes, notificationsRes] = await Promise.allSettled([
-        fetch('http://localhost:5000/api/interviews', { headers }),
-        fetch('http://localhost:5000/api/companies', { headers }),
-        fetch('http://localhost:5000/api/job-roles', { headers }),
-        fetch('http://localhost:5000/api/questions', { headers }),
-        fetch('http://localhost:5000/api/reminders', { headers }),
-        fetch('http://localhost:5000/api/notifications', { headers })
+        fetch(API_ENDPOINTS.INTERVIEWS.LIST, { headers }),
+        fetch(API_ENDPOINTS.COMPANIES.LIST, { headers }),
+        fetch(API_ENDPOINTS.JOB_ROLES.LIST, { headers }),
+        fetch(API_ENDPOINTS.QUESTIONS.LIST, { headers }),
+        fetch(API_ENDPOINTS.REMINDERS.LIST, { headers }),
+        fetch(API_ENDPOINTS.NOTIFICATIONS.LIST, { headers })
       ]);
 
       // Process interviews

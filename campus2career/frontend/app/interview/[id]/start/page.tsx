@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, use } from 'react';
+import { API_BASE_URL } from '@/lib/api';
 import { useRouter } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 
@@ -36,7 +37,7 @@ export default function StartInterviewPage({ params }: { params: Promise<{ id: s
   const fetchInterview = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/interviews/${resolvedParams.id}`, {
+      const response = await fetch(`process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/interviews/${resolvedParams.id}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
@@ -62,7 +63,7 @@ export default function StartInterviewPage({ params }: { params: Promise<{ id: s
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/interviews/${resolvedParams.id}/start`, {
+      const response = await fetch(`process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/interviews/${resolvedParams.id}/start`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

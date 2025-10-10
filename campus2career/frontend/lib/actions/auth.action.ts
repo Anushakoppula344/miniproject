@@ -23,7 +23,7 @@ export async function signUp(params: SignUpParams): Promise<{ success: boolean, 
     const { name, email, password } = params;
 
     try {
-        const response = await fetch('http://localhost:5000/auth/sign-up', {
+        const response = await fetch('process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/auth/sign-up', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, email, password }),
@@ -79,7 +79,7 @@ export async function getCurrentUser(): Promise<User | null> {
     if (!sessionCookie) return null;
 
     try {
-        const response = await fetch('http://localhost:5000/auth/me', {
+        const response = await fetch('process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/auth/me', {
             headers: { 'Authorization': `Bearer ${sessionCookie}` },
         });
 

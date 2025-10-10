@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { API_BASE_URL } from '@/lib/api';
 import { useRouter } from 'next/navigation';
 import Navbar from '../../../components/Navbar';
 
@@ -92,7 +93,7 @@ export default function InterviewSetupPage() {
       const finalRole = formData.role === 'others' ? formData.customRole : formData.role;
       const finalQuestionCount = formData.questionCount === 0 ? formData.customQuestionCount : formData.questionCount;
       
-      const response = await fetch('http://localhost:5000/api/interviews', {
+      const response = await fetch('process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/interviews', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

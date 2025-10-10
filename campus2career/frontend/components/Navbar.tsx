@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { API_BASE_URL } from '@/lib/api';
 import { useRouter } from 'next/navigation';
 import { useTheme } from './ThemeProvider';
 import ThemeToggle from './ThemeToggle';
@@ -154,7 +155,7 @@ export default function Navbar() {
               <div className="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center overflow-hidden">
                 {user.profilePicture ? (
                   <img
-                    src={`http://localhost:5000${user.profilePicture}`}
+                    src={`process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'${user.profilePicture}`}
                     alt="Profile"
                     className="w-full h-full object-cover"
                   />

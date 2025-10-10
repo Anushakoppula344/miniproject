@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { API_BASE_URL } from '@/lib/api';
 import { useParams, useRouter } from 'next/navigation';
 import Navbar from '../../../components/Navbar';
 import { useNotifications } from '../../../components/NotificationProvider';
@@ -64,7 +65,7 @@ export default function CompanyDetailPage() {
   const fetchCompanyDetails = async (companyId: string) => {
     try {
       setIsLoading(true);
-      const response = await fetch(`http://localhost:5000/api/companies/${companyId}`, {
+      const response = await fetch(`process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/companies/${companyId}`, {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -99,7 +100,7 @@ export default function CompanyDetailPage() {
 
   const fetchDocuments = async (companyId: string) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/companies/${companyId}/documents`, {
+      const response = await fetch(`process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/companies/${companyId}/documents`, {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -119,7 +120,7 @@ export default function CompanyDetailPage() {
   const fetchJobRoles = async (companyId: string) => {
     try {
       // First get the company name to filter job roles
-      const companyResponse = await fetch(`http://localhost:5000/api/companies/${companyId}`, {
+      const companyResponse = await fetch(`process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/companies/${companyId}`, {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -135,7 +136,7 @@ export default function CompanyDetailPage() {
           console.log('Company name for filtering:', companyName); // Debug log
 
           // Fetch all job roles and filter by company name
-          const response = await fetch('http://localhost:5000/api/job-roles', {
+          const response = await fetch('process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/job-roles', {
             headers: {
               'Content-Type': 'application/json'
             }
@@ -176,7 +177,7 @@ export default function CompanyDetailPage() {
     setLoadingDocuments(prev => ({ ...prev, [`download-${doc.id || doc._id}`]: true }));
     try {
       // Use the real document download endpoint
-      const downloadUrl = `http://localhost:5000/api/companies/${params.id}/documents/${doc.id || doc._id}/download`;
+      const downloadUrl = `process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/companies/${params.id}/documents/${doc.id || doc._id}/download`;
       
       // Test if the endpoint is accessible first
       const response = await fetch(downloadUrl, { method: 'HEAD' });
@@ -219,7 +220,7 @@ export default function CompanyDetailPage() {
     setLoadingDocuments(prev => ({ ...prev, [`view-${doc.id || doc._id}`]: true }));
     try {
       // Use the real document view endpoint
-      const viewUrl = `http://localhost:5000/api/companies/${params.id}/documents/${doc.id || doc._id}/view`;
+      const viewUrl = `process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/companies/${params.id}/documents/${doc.id || doc._id}/view`;
       
       // Test if the endpoint is accessible first
       const response = await fetch(viewUrl, { method: 'HEAD' });

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, use } from 'react';
+import { API_BASE_URL } from '@/lib/api';
 import { useRouter } from 'next/navigation';
 
 interface Question {
@@ -125,7 +126,7 @@ export default function InterviewPage({ params }: { params: Promise<{ id: string
         setUser(parsedUser);
         console.log('👤 User data loaded from localStorage:', parsedUser);
         console.log('👤 Profile picture path:', parsedUser.profilePicture);
-        console.log('👤 Full profile picture URL:', parsedUser.profilePicture ? `http://localhost:5000${parsedUser.profilePicture}` : 'No profile picture');
+        console.log('👤 Full profile picture URL:', parsedUser.profilePicture ? `process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'${parsedUser.profilePicture}` : 'No profile picture');
         
         // If no profile picture in localStorage, try to fetch fresh user data
         if (!parsedUser.profilePicture) {
@@ -145,7 +146,7 @@ export default function InterviewPage({ params }: { params: Promise<{ id: string
     try {
       const token = localStorage.getItem('token');
       if (token) {
-        const response = await fetch('http://localhost:5000/api/users/profile', {
+        const response = await fetch('process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/users/profile', {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -204,12 +205,12 @@ export default function InterviewPage({ params }: { params: Promise<{ id: string
       };
       
       console.log('📤 [FRONTEND] Sending request to backend:', {
-        url: `http://localhost:5000/api/interviews/${resolvedParams.id}/get-next-question`,
+        url: `process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/interviews/${resolvedParams.id}/get-next-question`,
         method: 'POST',
         body: requestBody
       });
       
-      const response = await fetch(`http://localhost:5000/api/interviews/${resolvedParams.id}/get-next-question`, {
+      const response = await fetch(`process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/interviews/${resolvedParams.id}/get-next-question`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -401,7 +402,7 @@ export default function InterviewPage({ params }: { params: Promise<{ id: string
   const fetchInterview = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/interviews/${resolvedParams.id}`, {
+      const response = await fetch(`process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/interviews/${resolvedParams.id}`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
@@ -515,7 +516,7 @@ export default function InterviewPage({ params }: { params: Promise<{ id: string
     
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/interviews/${resolvedParams.id}/analyze-answer`, {
+      const response = await fetch(`process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/interviews/${resolvedParams.id}/analyze-answer`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -616,7 +617,7 @@ export default function InterviewPage({ params }: { params: Promise<{ id: string
         setIsInFollowUpMode(true);
         
         const token = localStorage.getItem('token');
-        const response = await fetch(`http://localhost:5000/api/interviews/${resolvedParams.id}/generate-followup`, {
+        const response = await fetch(`process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/interviews/${resolvedParams.id}/generate-followup`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -779,7 +780,7 @@ export default function InterviewPage({ params }: { params: Promise<{ id: string
     
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/interviews/${resolvedParams.id}/personality`, {
+      const response = await fetch(`process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/interviews/${resolvedParams.id}/personality`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -812,7 +813,7 @@ export default function InterviewPage({ params }: { params: Promise<{ id: string
     
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/interviews/${resolvedParams.id}/analyze-emotion`, {
+      const response = await fetch(`process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/interviews/${resolvedParams.id}/analyze-emotion`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -1059,12 +1060,12 @@ export default function InterviewPage({ params }: { params: Promise<{ id: string
       };
       
       console.log('📤 [FRONTEND] Sending answer to backend:', {
-        url: `http://localhost:5000/api/interviews/${resolvedParams.id}/answer`,
+        url: `process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/interviews/${resolvedParams.id}/answer`,
         method: 'POST',
         body: requestBody
       });
       
-      const response = await fetch(`http://localhost:5000/api/interviews/${resolvedParams.id}/answer`, {
+      const response = await fetch(`process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/interviews/${resolvedParams.id}/answer`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -1151,7 +1152,7 @@ export default function InterviewPage({ params }: { params: Promise<{ id: string
           
           try {
             const token = localStorage.getItem('token');
-            const analysisResponse = await fetch(`http://localhost:5000/api/interviews/${resolvedParams.id}/analyze-answer`, {
+            const analysisResponse = await fetch(`process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/interviews/${resolvedParams.id}/analyze-answer`, {
               method: 'POST',
               headers: {
                 'Authorization': `Bearer ${token}`,
@@ -1249,7 +1250,7 @@ export default function InterviewPage({ params }: { params: Promise<{ id: string
   const endInterview = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/interviews/${resolvedParams.id}/end`, {
+      const response = await fetch(`process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/interviews/${resolvedParams.id}/end`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -1401,7 +1402,7 @@ export default function InterviewPage({ params }: { params: Promise<{ id: string
                       <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center overflow-hidden">
                         {user?.profilePicture ? (
                           <img 
-                            src={`http://localhost:5000${user.profilePicture}`} 
+                            src={`process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'${user.profilePicture}`} 
                             alt={user.fullName || 'User'} 
                             className="w-full h-full object-cover"
                             onError={(e) => {

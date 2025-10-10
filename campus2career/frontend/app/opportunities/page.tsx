@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { API_BASE_URL } from '@/lib/api';
 import { useRouter } from 'next/navigation';
 import Navbar from '../../components/Navbar';
 import { useNotifications } from '../../components/NotificationProvider';
@@ -48,10 +49,10 @@ export default function OpportunitiesPage() {
     try {
       const token = localStorage.getItem('token');
       const [companiesRes, jobRolesRes] = await Promise.all([
-        fetch('http://localhost:5000/api/companies', {
+        fetch('process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/companies', {
           headers: { 'Authorization': `Bearer ${token}` }
         }),
-        fetch('http://localhost:5000/api/job-roles', {
+        fetch('process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/job-roles', {
           headers: { 'Authorization': `Bearer ${token}` }
         })
       ]);
