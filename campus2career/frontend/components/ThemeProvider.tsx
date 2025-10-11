@@ -32,7 +32,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       try {
         const token = localStorage.getItem('token');
         if (token) {
-          const response = await fetch('process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/theme-preferences', {
+          const response = await fetch(`${API_BASE_URL}/api/theme-preferences', {
             headers: {
               'Authorization': `Bearer ${token}`
             }

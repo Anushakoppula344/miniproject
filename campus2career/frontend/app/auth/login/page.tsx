@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { API_ENDPOINTS } from '@/lib/api';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -27,7 +26,7 @@ export default function LoginPage() {
     setError('');
 
     try {
-      const response = await fetch(API_ENDPOINTS.AUTH.LOGIN, {
+      const response = await fetch('http://localhost:5000/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -49,7 +49,7 @@ export default function CompaniesManagement() {
   const fetchCompanies = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/companies', {
+      const response = await fetch(`${API_BASE_URL}/api/companies', {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -78,7 +78,7 @@ export default function CompaniesManagement() {
     
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/companies', {
+      const response = await fetch(`${API_BASE_URL}/api/companies', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -164,7 +164,7 @@ export default function CompaniesManagement() {
     
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/companies/${editingCompany._id}`, {
+      const response = await fetch(`${API_BASE_URL}/api/companies/${editingCompany._id}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -251,7 +251,7 @@ export default function CompaniesManagement() {
       console.log('Deleting company:', companyToDelete.name, 'with ID:', companyToDelete._id);
       console.log('Using token:', token ? 'Token exists' : 'No token');
 
-      const response = await fetch(`process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/companies/${companyToDelete._id}`, {
+      const response = await fetch(`${API_BASE_URL}/api/companies/${companyToDelete._id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -354,7 +354,7 @@ export default function CompaniesManagement() {
         formData.append('document', fileData.file);
         formData.append('type', fileData.type);
 
-        const response = await fetch(`process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/companies/${selectedCompany._id}/documents`, {
+        const response = await fetch(`${API_BASE_URL}/api/companies/${selectedCompany._id}/documents`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`
@@ -402,7 +402,7 @@ export default function CompaniesManagement() {
     
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/companies/${company._id}/documents/${documentId}`, {
+      const response = await fetch(`${API_BASE_URL}/api/companies/${company._id}/documents/${documentId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,

@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { API_ENDPOINTS, API_BASE_URL } from '@/lib/api';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -45,7 +44,7 @@ export default function AuthModal({ isOpen, onClose, initialMode, onSuccess }: A
 
     try {
       const endpoint = mode === 'login' ? 'login' : 'register';
-      const response = await fetch(API_ENDPOINTS.AUTH[endpoint.toUpperCase() as keyof typeof API_ENDPOINTS.AUTH] || `${API_BASE_URL}/api/auth/${endpoint}`, {
+      const response = await fetch(`http://localhost:5000/api/auth/${endpoint}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
