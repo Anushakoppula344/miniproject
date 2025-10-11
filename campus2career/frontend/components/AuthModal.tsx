@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { apiCall } from '@/lib/api';
 import { useRouter } from 'next/navigation';
 
 interface AuthModalProps {
@@ -44,7 +45,7 @@ export default function AuthModal({ isOpen, onClose, initialMode, onSuccess }: A
 
     try {
       const endpoint = mode === 'login' ? 'login' : 'register';
-      const response = await fetch(`http://localhost:5000/api/auth/${endpoint}`, {
+      const response = await fetch(apiCall(`/api/auth/${endpoint}`), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

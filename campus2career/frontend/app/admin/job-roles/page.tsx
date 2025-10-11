@@ -65,7 +65,7 @@ export default function JobRolesManagement() {
   const fetchJobRoles = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/job-roles', {
+      const response = await fetch(apiCall('/api/job-roles'), {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -83,7 +83,7 @@ export default function JobRolesManagement() {
   const fetchCompanies = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/companies', {
+      const response = await fetch(apiCall('/api/companies'), {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -112,7 +112,7 @@ export default function JobRolesManagement() {
     
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/job-roles', {
+      const response = await fetch(apiCall('/api/job-roles'), {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -196,7 +196,7 @@ export default function JobRolesManagement() {
     
     try {
       const token = localStorage.getItem('token');
-        const response = await fetch(`process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/job-roles/${editingRole!._id}`, {
+        const response = await fetch(apiCall(`/api/job-roles/${editingRole!._id}`), {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -258,7 +258,7 @@ export default function JobRolesManagement() {
     
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/job-roles/${roleToDelete._id}`, {
+      const response = await fetch(apiCall(`/api/job-roles/${roleToDelete._id}`), {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -292,7 +292,7 @@ export default function JobRolesManagement() {
   const handleUpdateAllStatuses = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/job-roles/bulk-status-update', {
+      const response = await fetch(apiCall('/api/job-roles/bulk-status-update'), {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,

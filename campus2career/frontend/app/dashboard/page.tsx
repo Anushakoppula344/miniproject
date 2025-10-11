@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { apiCall } from '@/lib/api';
 import { useRouter } from 'next/navigation';
 import Navbar from '../../components/Navbar';
 import CircularProgress from '../../components/CircularProgress';
@@ -115,12 +116,12 @@ export default function DashboardPage() {
 
       // Fetch all dashboard data in parallel
       const [interviewsRes, companiesRes, jobRolesRes, forumRes, calendarRes, notificationsRes] = await Promise.allSettled([
-        fetch('http://localhost:5000/api/interviews', { headers }),
-        fetch('http://localhost:5000/api/companies', { headers }),
-        fetch('http://localhost:5000/api/job-roles', { headers }),
-        fetch('http://localhost:5000/api/questions', { headers }),
-        fetch('http://localhost:5000/api/reminders', { headers }),
-        fetch('http://localhost:5000/api/notifications', { headers })
+        apiCall('/api/interviews'), { headers }),
+        apiCall('/api/companies'), { headers }),
+        apiCall('/api/job-roles'), { headers }),
+        apiCall('/api/questions'), { headers }),
+        apiCall('/api/reminders'), { headers }),
+        apiCall('/api/notifications'), { headers })
       ]);
 
       // Process interviews

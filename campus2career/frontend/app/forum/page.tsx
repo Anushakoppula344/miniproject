@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { API_BASE_URL } from '@/lib/api';
+import { apiCall } from '@/lib/api';
 import Navbar from '../../components/Navbar';
 import { useNotifications } from '../../components/NotificationProvider';
 
@@ -163,7 +163,7 @@ export default function ForumPage() {
 
   const fetchQuestions = async () => {
     try {
-      const response = await fetch('process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/questions', {
+      const response = await apiCall('/api/questions', {
         headers: { 
           'Content-Type': 'application/json'
         }
@@ -217,7 +217,7 @@ export default function ForumPage() {
 
   const handleLike = async (questionId: string) => {
     try {
-      const response = await fetch(`process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/questions/${questionId}/like`, {
+      const response = await apiCall(`/api/questions/${questionId}/like`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -255,7 +255,7 @@ export default function ForumPage() {
 
   const handleBookmark = async (questionId: string) => {
     try {
-      const response = await fetch(`process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/questions/${questionId}/bookmark`, {
+      const response = await fetch(apiCall(`/api/questions/${questionId}/bookmark`), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -294,7 +294,7 @@ export default function ForumPage() {
   const handleSubmitQuestion = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch('process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/questions', {
+      const response = await fetch(apiCall('/api/questions'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -358,7 +358,7 @@ export default function ForumPage() {
     if (!newReply.content.trim()) return;
     
     try {
-      const response = await fetch(`process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/questions/${questionId}/answers`, {
+      const response = await fetch(apiCall(`/api/questions/${questionId}/answers`), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -420,7 +420,7 @@ export default function ForumPage() {
 
   const fetchReplies = async (questionId: string) => {
     try {
-      const response = await fetch(`process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/questions/${questionId}/answers`, {
+      const response = await fetch(apiCall(`/api/questions/${questionId}/answers`), {
         headers: {
           'Content-Type': 'application/json'
         }
@@ -470,7 +470,7 @@ export default function ForumPage() {
       console.log('Viewing question:', questionId); // Debug log
       console.log('Current questions:', questions.map(q => ({ id: q.id, title: q.title, views: q.views }))); // Debug log
       // Increment view count by fetching the question details
-      const response = await fetch(`process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/questions/${questionId}`, {
+      const response = await fetch(apiCall(`/api/questions/${questionId}`), {
         headers: {
           'Content-Type': 'application/json'
         }

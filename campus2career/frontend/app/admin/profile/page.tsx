@@ -79,7 +79,7 @@ export default function AdminProfilePage() {
     
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/users/profile', {
+      const response = await fetch(apiCall('/api/users/profile'), {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,

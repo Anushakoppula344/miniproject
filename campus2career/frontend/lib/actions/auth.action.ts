@@ -1,6 +1,7 @@
 "use server";
 
 import { cookies } from "next/headers";
+import { buildApiUrl, API_CONFIG } from "../config";
 
 // Session duration (1 week)
 const SESSION_DURATION = 60 * 60 * 24 * 7;
@@ -23,7 +24,7 @@ export async function signUp(params: SignUpParams): Promise<{ success: boolean, 
     const { name, email, password } = params;
 
     try {
-        const response = await fetch('process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/auth/sign-up', {
+        const response = await fetch(buildApiUrl(API_CONFIG.endpoints.auth.register), {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name, email, password }),
@@ -44,7 +45,7 @@ export async function signIn(params: SignInParams): Promise<{ success: boolean, 
     const { email, password } = params;
 
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://miniproject-backend-chi.vercel.app'}/auth/sign-in`, {
+        const response = await fetch(buildApiUrl(API_CONFIG.endpoints.auth.login), {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password }),
@@ -79,7 +80,7 @@ export async function getCurrentUser(): Promise<User | null> {
     if (!sessionCookie) return null;
 
     try {
-        const response = await fetch('process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/auth/me', {
+        const response = await fetch(buildApiUrl('/api/auth/me'), {
             headers: { 'Authorization': `Bearer ${sessionCookie}` },
         });
 

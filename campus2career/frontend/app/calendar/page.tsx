@@ -126,13 +126,13 @@ export default function CalendarPage() {
     try {
       const token = localStorage.getItem('token');
       const [todaysRes, upcomingRes, allRes] = await Promise.all([
-        fetch('process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/reminders/today', {
+        fetch(apiCall('/api/reminders/today'), {
           headers: { 'Authorization': `Bearer ${token}` }
         }),
-        fetch('process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/reminders/upcoming?limit=10', {
+        fetch(apiCall('/api/reminders/upcoming?limit=10'), {
           headers: { 'Authorization': `Bearer ${token}` }
         }),
-        fetch('process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/reminders', {
+        fetch(apiCall('/api/reminders'), {
           headers: { 'Authorization': `Bearer ${token}` }
         })
       ]);
@@ -168,7 +168,7 @@ export default function CalendarPage() {
   const checkGoogleCalendarStatus = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/google-calendar/status', {
+      const response = await fetch(apiCall('/api/google-calendar/status'), {
         headers: { 'Authorization': `Bearer ${token}` }
       });
 
@@ -189,7 +189,7 @@ export default function CalendarPage() {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/reminders/${reminderId}`, {
+      const response = await fetch(apiCall(`/api/reminders/${reminderId}`), {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -314,7 +314,7 @@ export default function CalendarPage() {
         endDate: new Date(endDate).toISOString()
       };
 
-      const response = await fetch('process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/reminders', {
+      const response = await fetch(apiCall('/api/reminders'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

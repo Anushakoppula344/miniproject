@@ -38,7 +38,7 @@ export default function AdminDashboard() {
       const token = localStorage.getItem('token');
       
       // Fetch companies
-      const companiesResponse = await fetch('process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/companies', {
+      const companiesResponse = await fetch(apiCall('/api/companies'), {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -47,7 +47,7 @@ export default function AdminDashboard() {
       const companiesData = await companiesResponse.json();
       
       // Fetch job roles
-      const jobRolesResponse = await fetch('process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/job-roles', {
+      const jobRolesResponse = await fetch(apiCall('/api/job-roles'), {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'

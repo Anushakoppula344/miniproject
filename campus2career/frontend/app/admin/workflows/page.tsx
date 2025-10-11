@@ -55,7 +55,7 @@ export default function HiringWorkflowsManagement() {
   const fetchWorkflows = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/workflows', {
+      const response = await fetch(apiCall('/api/workflows'), {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -73,7 +73,7 @@ export default function HiringWorkflowsManagement() {
   const fetchCompanies = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/companies', {
+      const response = await fetch(apiCall('/api/companies'), {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -102,7 +102,7 @@ export default function HiringWorkflowsManagement() {
     
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch('process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/workflows', {
+      const response = await fetch(apiCall('/api/workflows'), {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -161,7 +161,7 @@ export default function HiringWorkflowsManagement() {
     
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/workflows/${editingWorkflow!._id}`, {
+      const response = await fetch(apiCall(`/api/workflows/${editingWorkflow!._id}`), {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -215,7 +215,7 @@ export default function HiringWorkflowsManagement() {
     
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'/api/workflows/${workflowToDelete._id}`, {
+      const response = await fetch(apiCall(`/api/workflows/${workflowToDelete._id}`), {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
