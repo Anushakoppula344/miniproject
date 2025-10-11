@@ -1,11 +1,8 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { API_BASE_URL } from '@/lib/api';
+import { apiCall } from '@/lib/api';
 import { toast } from 'sonner';
-
-// API configuration
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
 interface Notification {
   _id: string;
@@ -71,7 +68,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
         return;
       }
       
-      const response = await fetch(`${API_BASE_URL}/notifications?limit=50`, {
+      const response = await apiCall('/api/notifications?limit=50', {
         headers: getAuthHeaders()
       });
 
@@ -148,7 +145,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
         return;
       }
 
-      const response = await fetch(`${API_BASE_URL}/notifications`, {
+      const response = await apiCall('/api/notifications', {
         method: 'POST',
         headers: getAuthHeaders(),
         body: JSON.stringify(notification)
@@ -216,7 +213,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
         return;
       }
 
-      const response = await fetch(`${API_BASE_URL}/notifications/${id}/read`, {
+      const response = await apiCall(`/api/notifications/${id}/read`, {
         method: 'PUT',
         headers: getAuthHeaders()
       });
@@ -256,7 +253,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
         return;
       }
 
-      const response = await fetch(`${API_BASE_URL}/notifications/read-all`, {
+      const response = await apiCall('/api/notifications/read-all', {
         method: 'PUT',
         headers: getAuthHeaders()
       });
@@ -286,7 +283,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
         return;
       }
 
-      const response = await fetch(`${API_BASE_URL}/notifications/${id}`, {
+      const response = await apiCall(`/api/notifications/${id}`, {
         method: 'DELETE',
         headers: getAuthHeaders()
       });
@@ -312,7 +309,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({ 
         return;
       }
 
-      const response = await fetch(`${API_BASE_URL}/notifications`, {
+      const response = await apiCall('/api/notifications', {
         method: 'DELETE',
         headers: getAuthHeaders()
       });

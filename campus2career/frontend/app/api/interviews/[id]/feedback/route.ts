@@ -22,7 +22,7 @@ export async function GET(
     }
 
     // Get the backend URL from environment variables
-    const backendUrl = process.env.BACKEND_URL || API_BASE_URL';
+    const backendUrl = process.env.NEXT_PUBLIC_API_URL || process.env.BACKEND_URL || 'http://localhost:5000';
     const backendEndpoint = `${backendUrl}/api/interviews/${interviewId}/feedback`;
 
     console.log('📤 [FRONTEND API] Forwarding request to:', backendEndpoint);

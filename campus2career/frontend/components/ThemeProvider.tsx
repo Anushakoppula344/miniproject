@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-import { API_BASE_URL } from '@/lib/api';
+import { apiCall } from '@/lib/api';
 type Theme = 'light' | 'dark' | 'system';
 
 interface ThemeContextType {
@@ -32,7 +32,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       try {
         const token = localStorage.getItem('token');
         if (token) {
-          const response = await fetch(`${API_BASE_URL}/api/theme-preferences', {
+          const response = await apiCall('/api/theme-preferences', {
             headers: {
               'Authorization': `Bearer ${token}`
             }
