@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { API_BASE_URL } from '@/lib/api';
+import { apiCall } from '@/lib/api';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import AdminProtection from '@/components/AdminProtection';
@@ -38,7 +38,7 @@ export default function AdminDashboard() {
       const token = localStorage.getItem('token');
       
       // Fetch companies
-      const companiesResponse = await fetch(apiCall('/api/companies'), {
+      const companiesResponse = await apiCall('/api/companies', {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -47,7 +47,7 @@ export default function AdminDashboard() {
       const companiesData = await companiesResponse.json();
       
       // Fetch job roles
-      const jobRolesResponse = await fetch(apiCall('/api/job-roles'), {
+      const jobRolesResponse = await apiCall('/api/job-roles', {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'

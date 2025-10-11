@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { API_BASE_URL } from '@/lib/api';
+import { apiCall } from '@/lib/api';
 import { useRouter } from 'next/navigation';
 import Navbar from '../../components/Navbar';
 import { useNotifications } from '../../components/NotificationProvider';
@@ -186,7 +186,7 @@ export default function ProfilePage() {
       const token = localStorage.getItem('token');
       
       // Fetch notification preferences
-      const notificationResponse = await fetch(apiCall('/api/notification-preferences'), {
+      const notificationResponse = await apiCall('/api/notification-preferences', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -198,7 +198,7 @@ export default function ProfilePage() {
       }
       
       // Fetch theme preferences
-      const themeResponse = await fetch(apiCall('/api/theme-preferences'), {
+      const themeResponse = await apiCall('/api/theme-preferences', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -243,7 +243,7 @@ export default function ProfilePage() {
     // Save to database
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(apiCall('/api/notification-preferences'), {
+      const response = await apiCall('/api/notification-preferences', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -287,7 +287,7 @@ export default function ProfilePage() {
     // Save to database
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(apiCall('/api/theme-preferences'), {
+      const response = await apiCall('/api/theme-preferences', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -328,7 +328,7 @@ export default function ProfilePage() {
     setIsSaving(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(apiCall('/api/users/profile'), {
+      const response = await apiCall('/api/users/profile', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -381,7 +381,7 @@ export default function ProfilePage() {
     setIsSaving(true);
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(apiCall('/api/users/change-password'), {
+      const response = await apiCall('/api/users/change-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -461,7 +461,7 @@ export default function ProfilePage() {
       const formData = new FormData();
       formData.append('profilePicture', file);
 
-      const response = await fetch(apiCall('/api/users/upload-profile-picture'), {
+      const response = await apiCall('/api/users/upload-profile-picture', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -508,7 +508,7 @@ export default function ProfilePage() {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(apiCall('/api/users/remove-profile-picture'), {
+      const response = await apiCall('/api/users/remove-profile-picture', {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -580,7 +580,7 @@ export default function ProfilePage() {
                   <div className="w-16 h-16 bg-indigo-600 rounded-full flex items-center justify-center overflow-hidden">
                     {profilePicture ? (
                       <img
-                        src={`process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'${profilePicture}`}
+                        src={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000'}${profilePicture}`}
                         alt="Profile"
                         className="w-full h-full object-cover"
                       />

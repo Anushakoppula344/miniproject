@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { API_BASE_URL } from '@/lib/api';
+import { apiCall } from '@/lib/api';
 import Navbar from '../../components/Navbar';
 import { useNotifications } from '../../components/NotificationProvider';
 
@@ -126,13 +126,13 @@ export default function CalendarPage() {
     try {
       const token = localStorage.getItem('token');
       const [todaysRes, upcomingRes, allRes] = await Promise.all([
-        fetch(apiCall('/api/reminders/today'), {
+        apiCall('/api/reminders/today', {
           headers: { 'Authorization': `Bearer ${token}` }
         }),
-        fetch(apiCall('/api/reminders/upcoming?limit=10'), {
+        apiCall('/api/reminders/upcoming?limit=10', {
           headers: { 'Authorization': `Bearer ${token}` }
         }),
-        fetch(apiCall('/api/reminders'), {
+        apiCall('/api/reminders', {
           headers: { 'Authorization': `Bearer ${token}` }
         })
       ]);
@@ -168,7 +168,7 @@ export default function CalendarPage() {
   const checkGoogleCalendarStatus = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(apiCall('/api/google-calendar/status'), {
+      const response = await apiCall('/api/google-calendar/status', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
 
@@ -189,7 +189,7 @@ export default function CalendarPage() {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(apiCall(`/api/reminders/${reminderId}`), {
+      const response = await apiCall(`/api/reminders/${reminderId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -314,7 +314,7 @@ export default function CalendarPage() {
         endDate: new Date(endDate).toISOString()
       };
 
-      const response = await fetch(apiCall('/api/reminders'), {
+      const response = await apiCall('/api/reminders', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

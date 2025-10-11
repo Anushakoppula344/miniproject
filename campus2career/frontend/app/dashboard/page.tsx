@@ -116,12 +116,12 @@ export default function DashboardPage() {
 
       // Fetch all dashboard data in parallel
       const [interviewsRes, companiesRes, jobRolesRes, forumRes, calendarRes, notificationsRes] = await Promise.allSettled([
-        apiCall('/api/interviews'), { headers }),
-        apiCall('/api/companies'), { headers }),
-        apiCall('/api/job-roles'), { headers }),
-        apiCall('/api/questions'), { headers }),
-        apiCall('/api/reminders'), { headers }),
-        apiCall('/api/notifications'), { headers })
+        apiCall('/api/interviews', { headers }),
+        apiCall('/api/companies', { headers }),
+        apiCall('/api/job-roles', { headers }),
+        apiCall('/api/questions', { headers }),
+        apiCall('/api/reminders', { headers }),
+        apiCall('/api/notifications', { headers })
       ]);
 
       // Process interviews

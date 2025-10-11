@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { API_BASE_URL } from '@/lib/api';
+import { apiCall } from '@/lib/api';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import AdminProtection from '@/components/AdminProtection';
@@ -79,7 +79,7 @@ export default function AdminProfilePage() {
     
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(apiCall('/api/users/profile'), {
+      const response = await apiCall('/api/users/profile', {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,

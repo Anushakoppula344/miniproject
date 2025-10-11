@@ -45,7 +45,7 @@ export default function AuthModal({ isOpen, onClose, initialMode, onSuccess }: A
 
     try {
       const endpoint = mode === 'login' ? 'login' : 'register';
-      const response = await fetch(apiCall(`/api/auth/${endpoint}`), {
+      const response = await apiCall(`/api/auth/${endpoint}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
