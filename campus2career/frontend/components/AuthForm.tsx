@@ -40,7 +40,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
             if (type === "sign-up") {
                 const { name, email, password } = data;
 
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://miniproject-backend-chi.vercel.app'}/auth/sign-up`, {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://miniproject-delta-beryl.vercel.app'}/api/auth/register`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ name, email, password }),
@@ -58,7 +58,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
             } else {
                 const { email, password } = data;
 
-                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://miniproject-backend-chi.vercel.app'}/auth/sign-in`, {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'https://miniproject-delta-beryl.vercel.app'}/api/auth/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password }),
