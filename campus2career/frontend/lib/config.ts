@@ -13,11 +13,9 @@ export const API_CONFIG = {
     }
     
     // For production deployment, use the deployed backend URL
-    // Replace this with your actual deployed backend URL
     if (window.location.hostname.includes('vercel.app') || window.location.hostname !== 'localhost') {
-      // Update this URL to match your deployed backend
-      // You need to deploy your backend to Railway, Render, or similar service
-      return 'https://miniproject-backend-chi.vercel.app'; // Replace with your actual backend URL
+      // Use the correct deployed backend URL
+      return 'https://miniproject-delta-beryl.vercel.app';
     }
     
     // Default to localhost for development

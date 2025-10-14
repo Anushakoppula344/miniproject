@@ -1,5 +1,8 @@
 import { buildApiUrl, API_CONFIG } from './config';
 
+// Export API base URL for direct use
+export const API_BASE_URL = API_CONFIG.getBaseURL();
+
 // Generic API call function
 export const apiCall = async (
   endpoint: string,
