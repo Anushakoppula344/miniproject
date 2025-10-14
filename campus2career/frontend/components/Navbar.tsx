@@ -156,7 +156,7 @@ export default function Navbar() {
               <div className="w-8 h-8 bg-indigo-600 rounded-full flex items-center justify-center overflow-hidden">
                 {user.profilePicture ? (
                   <img
-                    src={API_BASE_URL${user.profilePicture}`}
+                    src={`${API_BASE_URL}${user.profilePicture}`}
                     alt="Profile"
                     className="w-full h-full object-cover"
                   />
