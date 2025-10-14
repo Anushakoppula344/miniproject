@@ -24,19 +24,24 @@ export default function RegisterPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('🔍 [RegisterPage] Form submitted with data:', formData);
     setIsLoading(true);
     setError('');
 
     try {
+      console.log('🔍 [RegisterPage] Calling authApi.register...');
       const response = await authApi.register(
         formData.fullName,
         formData.email,
         formData.password
       );
 
+      console.log('🔍 [RegisterPage] Response received:', response);
       const data = await response.json();
+      console.log('🔍 [RegisterPage] Response data:', data);
 
       if (response.ok) {
+        console.log('🔍 [RegisterPage] Registration successful, storing tokens...');
         // Store tokens
         localStorage.setItem('token', data.data.token);
         localStorage.setItem('refreshToken', data.data.refreshToken);
@@ -45,9 +50,13 @@ export default function RegisterPage() {
         // Redirect to dashboard
         router.push('/dashboard');
       } else {
+        console.log('🔍 [RegisterPage] Registration failed:', data.message);
         setError(data.message || 'Registration failed');
       }
     } catch (err) {
+      console.log('🔍 [RegisterPage] Error caught:', err);
+      console.log('🔍 [RegisterPage] Error type:', typeof err);
+      console.log('🔍 [RegisterPage] Error message:', err instanceof Error ? err.message : 'Unknown error');
       setError('Network error. Please try again.');
     } finally {
       setIsLoading(false);

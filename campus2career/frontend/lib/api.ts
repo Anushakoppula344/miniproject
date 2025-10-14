@@ -8,7 +8,11 @@ export const apiCall = async (
   endpoint: string,
   options: RequestInit = {}
 ): Promise<Response> => {
+  console.log('🔍 [apiCall] Called with endpoint:', endpoint);
+  console.log('🔍 [apiCall] Options:', options);
+  
   const url = buildApiUrl(endpoint);
+  console.log('🔍 [apiCall] Final URL:', url);
   
   const defaultOptions: RequestInit = {
     headers: {
@@ -28,10 +32,16 @@ export const apiCall = async (
     }
   }
 
+  console.log('🔍 [apiCall] Final options:', { ...defaultOptions, ...options });
+  console.log('🔍 [apiCall] Making fetch request to:', url);
+
   const response = await fetch(url, {
     ...defaultOptions,
     ...options,
   });
+
+  console.log('🔍 [apiCall] Response status:', response.status);
+  console.log('🔍 [apiCall] Response headers:', response.headers);
 
   return response;
 };
@@ -44,11 +54,14 @@ export const authApi = {
       body: JSON.stringify({ email, password }),
     }),
 
-  register: (name: string, email: string, password: string) =>
-    apiCall(API_CONFIG.endpoints.auth.register, {
+  register: (name: string, email: string, password: string) => {
+    console.log('🔍 [authApi.register] Called with:', { name, email, password: '***' });
+    console.log('🔍 [authApi.register] Endpoint:', API_CONFIG.endpoints.auth.register);
+    return apiCall(API_CONFIG.endpoints.auth.register, {
       method: 'POST',
       body: JSON.stringify({ name, email, password }),
-    }),
+    });
+  },
 
   refresh: (refreshToken: string) =>
     apiCall(API_CONFIG.endpoints.auth.refresh, {
