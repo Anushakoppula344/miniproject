@@ -1,5 +1,6 @@
 'use client';
 
+// Force fresh deployment - template literals fixed
 import { useState, useEffect, useRef } from 'react';
 import { API_BASE_URL } from '@/lib/api';
 import { useRouter } from 'next/navigation';
