@@ -77,9 +77,17 @@ export const API_CONFIG = {
 // Helper function to build full API URLs
 export const buildApiUrl = (endpoint: string): string => {
   console.log('🔍 [buildApiUrl] Called with endpoint:', endpoint);
+  console.log('🔍 [buildApiUrl] Endpoint type:', typeof endpoint);
+  
   const baseURL = API_CONFIG.getBaseURL();
   console.log('🔍 [buildApiUrl] Base URL:', baseURL);
+  console.log('🔍 [buildApiUrl] Base URL type:', typeof baseURL);
+  console.log('🔍 [buildApiUrl] Base URL is Promise?', baseURL instanceof Promise);
+  
   const fullUrl = `${baseURL}${endpoint}`;
   console.log('🔍 [buildApiUrl] Full URL:', fullUrl);
+  console.log('🔍 [buildApiUrl] Full URL type:', typeof fullUrl);
+  console.log('🔍 [buildApiUrl] Full URL is Promise?', fullUrl instanceof Promise);
+  
   return fullUrl;
 };

@@ -43,10 +43,20 @@ export default function AuthModal({ isOpen, onClose, initialMode, onSuccess }: A
     setIsLoading(true);
     setError('');
 
+    console.log('🔍 [AuthModal] Form submitted');
+    console.log('🔍 [AuthModal] Mode:', mode);
+    console.log('🔍 [AuthModal] Form data:', formData);
+
     try {
       const endpoint = mode === 'login' ? 'login' : 'register';
+      console.log('🔍 [AuthModal] Endpoint:', endpoint);
+      
       const url = buildApiUrl(`/api/auth/${endpoint}`);
-      console.log('🔍 [AuthModal] Making request to:', url);
+      console.log('🔍 [AuthModal] Built URL:', url);
+      console.log('🔍 [AuthModal] URL type:', typeof url);
+      console.log('🔍 [AuthModal] URL is Promise?', url instanceof Promise);
+      
+      console.log('🔍 [AuthModal] Making fetch request...');
       const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -55,7 +65,12 @@ export default function AuthModal({ isOpen, onClose, initialMode, onSuccess }: A
         body: JSON.stringify(formData),
       });
 
+      console.log('🔍 [AuthModal] Response received:', response);
+      console.log('🔍 [AuthModal] Response status:', response.status);
+      console.log('🔍 [AuthModal] Response ok:', response.ok);
+
       const data = await response.json();
+      console.log('🔍 [AuthModal] Response data:', data);
 
       if (response.ok) {
         // Store tokens
